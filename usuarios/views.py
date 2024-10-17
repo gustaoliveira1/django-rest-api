@@ -1,7 +1,9 @@
 from rest_framework.generics import CreateAPIView, RetrieveUpdateDestroyAPIView
-from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework.permissions import AllowAny
 from usuarios.models import Usuario
 from usuarios.serializers import UsuarioSerializer
+from usuarios.permissions import IsOwnerOrReadOnly
+
 
 
 class UsuarioRegisterView(CreateAPIView):
@@ -13,4 +15,4 @@ class UsuarioRegisterView(CreateAPIView):
 class UsuarioDetailsView(RetrieveUpdateDestroyAPIView):
     queryset = Usuario.objects.all()
     serializer_class = UsuarioSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsOwnerOrReadOnly]
